@@ -1,10 +1,13 @@
 from django.conf import settings
+# from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
 
 # Create your models here.
+User = settings.AUTH_USER_MODEL
+
 class Tag(models.Model):
   value = models.TextField(max_length=100)
 
@@ -38,3 +41,9 @@ class Post(models.Model):
   def __str__(self):
     return self.title
 
+class AuthorProfile(models.Model):
+  user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+  bio = models.TextField()
+
+  def __str__(self):
+    return f'{self.__class__.__name__} object for {self.user}'
