@@ -10,6 +10,8 @@ User = settings.AUTH_USER_MODEL
 
 class Tag(models.Model):
   value = models.TextField(max_length=100, unique=True)
+  class Meta:
+    ordering = ['value']
 
   def __str__(self):
     return self.value
